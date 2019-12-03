@@ -9,6 +9,7 @@ import java.util.prefs.Preferences
 class PrefUtil {
 
     companion object{
+
         fun getTimerLength(context:Context): Int{
             //placeholder
             return 1
@@ -21,11 +22,12 @@ class PrefUtil {
             return preferences.getLong(PREVIOUS_TIMER_LENGTH_SECONDS_ID,0)
         }
 
-        fun setPreviousTimerLenghtSeconds(seconds: Long,context: Context){
+        fun setPreviousTimerLengthSeconds(seconds: Long, context: Context){
             val editor = PreferenceManager.getDefaultSharedPreferences(context).edit()
             editor.putLong(PREVIOUS_TIMER_LENGTH_SECONDS_ID,seconds)
             editor.apply()
         }
+
 
         private const val TIMER_STATE_ID = "gr.uoa.di.timer_state"
 

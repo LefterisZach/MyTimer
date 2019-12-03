@@ -8,16 +8,13 @@ import android.os.Build
 import android.os.Bundle
 import android.os.CountDownTimer
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
-
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 
-import android.view.View
 import android.view.Menu
 import android.view.MenuItem
 import androidx.annotation.RequiresApi
+import gr.uoa.di.util.NotificationUtil
 import gr.uoa.di.util.PrefUtil
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
@@ -90,7 +87,7 @@ class MainActivity : AppCompatActivity() {
         initTimer()
 
         removeAlarm(this)
-        //TODO: hide notification
+        NotificationUtil.hideTimerNotification(this)
     }
 
     @RequiresApi(Build.VERSION_CODES.KITKAT)
@@ -100,13 +97,13 @@ class MainActivity : AppCompatActivity() {
         if(timerState == TimerState.Running){
             timer.cancel()
             val wakeUpTime = setAlarm(this, nowSeconds,secondsRemaining)
-            //TODO: start background timer and show notification
+            NotificationUtil.showTimerRunning(this,wakeUpTime)
         }
         else if(timerState == TimerState.Paused){
-            //TODO: show notification
+            NotificationUtil.showTimerPaused(this)
         }
 
-        PrefUtil.setPreviousTimerLenghtSeconds(timerLengthSeconds,this)
+        PrefUtil.setPreviousTimerLengthSeconds(timerLengthSeconds,this)
         PrefUtil.setSecondsRemaining(secondsRemaining,this)
         PrefUtil.setTimerState(timerState,this)
     }
