@@ -61,7 +61,7 @@ class MainActivity : AppCompatActivity() {
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
         supportActionBar?.setIcon(R.drawable.ic_timer)
-        supportActionBar?.title = "        Timer"
+        supportActionBar?.title = "       MedTimer"
 
         fab_start.setOnClickListener { v ->
             startTimer()

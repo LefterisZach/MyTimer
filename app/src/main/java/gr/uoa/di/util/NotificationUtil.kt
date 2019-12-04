@@ -121,7 +121,7 @@ class NotificationUtil {
                 else NotificationManager.IMPORTANCE_LOW
                 val nChannel = NotificationChannel(channelId, channelName, channelImportance)
                 nChannel.enableLights(true)
-                nChannel.lightColor = Color.BLUE
+                nChannel.lightColor = Color.GRAY
                 this.createNotificationChannel(nChannel)
             }
         }
