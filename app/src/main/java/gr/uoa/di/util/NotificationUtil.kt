@@ -9,6 +9,7 @@ import android.media.RingtoneManager
 import android.net.Uri
 import android.os.Build
 import androidx.core.app.NotificationCompat
+import gr.uoa.di.AppConstants
 import gr.uoa.di.MainActivity
 import gr.uoa.di.R
 import gr.uoa.di.TimerNotificationActionReceiver
@@ -26,11 +27,13 @@ class NotificationUtil {
             startIntent.action = AppConstants.ACTION_START
             val startPendingIntent = PendingIntent.getBroadcast(context,
                     0, startIntent, PendingIntent.FLAG_UPDATE_CURRENT)
+
             val nBuilder = getBasicNotificationBuilder(context, CHANNEL_ID_TIMER, true)
             nBuilder.setContentTitle("Timer Expired!")
                     .setContentText("Start again?")
                     .setContentIntent(getPendingIntentWithStack(context, MainActivity::class.java))
-                    .addAction(R.drawable.ic_play, AppConstants.ACTION_START, startPendingIntent)
+                    .addAction(R.drawable.ic_play, "Start", startPendingIntent)
+
             val nManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             nManager.createNotificationChannel(CHANNEL_ID_TIMER, CHANNEL_NAME_TIMER, true)
             nManager.notify(TIMER_ID, nBuilder.build())
@@ -55,8 +58,8 @@ class NotificationUtil {
                     .setContentIntent(getPendingIntentWithStack(context, MainActivity::class.java))
                     .setOngoing(true)   //user cannot dismiss the notification manually
                     // it only gets dismissed from the code
-                    .addAction(R.drawable.ic_stop, AppConstants.ACTION_STOP, stopPendingIntent)
-                    .addAction(R.drawable.ic_pause, AppConstants.ACTION_PAUSE, pausePendingIntent)
+                    .addAction(R.drawable.ic_stop, "Stop", stopPendingIntent)
+                    .addAction(R.drawable.ic_pause, "Pause", pausePendingIntent)
 
             val nManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             nManager.createNotificationChannel(CHANNEL_ID_TIMER, CHANNEL_NAME_TIMER, true)
@@ -74,7 +77,7 @@ class NotificationUtil {
                     .setContentText("Resume?")
                     .setContentIntent(getPendingIntentWithStack(context, MainActivity::class.java))
                     .setOngoing(true)
-                    .addAction(R.drawable.ic_play, AppConstants.ACTION_RESUME, resumePendingIntent)
+                    .addAction(R.drawable.ic_play, "Resume", resumePendingIntent)
 
             val nManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             nManager.createNotificationChannel(CHANNEL_ID_TIMER, CHANNEL_NAME_TIMER, true)
@@ -120,7 +123,6 @@ class NotificationUtil {
                 nChannel.enableLights(true)
                 nChannel.lightColor = Color.BLUE
                 this.createNotificationChannel(nChannel)
-
             }
         }
     }

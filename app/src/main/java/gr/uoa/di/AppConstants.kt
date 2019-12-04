@@ -1,4 +1,4 @@
-package gr.uoa.di.util
+package gr.uoa.di
 
 class AppConstants{
     companion object{

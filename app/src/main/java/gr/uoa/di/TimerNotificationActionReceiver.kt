@@ -5,7 +5,6 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import androidx.annotation.RequiresApi
-import gr.uoa.di.util.AppConstants
 import gr.uoa.di.util.NotificationUtil
 import gr.uoa.di.util.PrefUtil
 
