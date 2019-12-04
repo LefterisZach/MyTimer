@@ -13,37 +13,37 @@ class TimerNotificationActionReceiver : BroadcastReceiver() {
 
     @RequiresApi(Build.VERSION_CODES.KITKAT)
     override fun onReceive(context: Context, intent: Intent) {
-        when(intent.action){
-            AppConstants.ACTION_STOP->{
+        when (intent.action) {
+            AppConstants.ACTION_STOP -> {
                 MainActivity.removeAlarm(context)
-                PrefUtil.setTimerState(MainActivity.TimerState.Stopped,context)
+                PrefUtil.setTimerState(MainActivity.TimerState.Stopped, context)
                 NotificationUtil.hideTimerNotification(context)
             }
-            AppConstants.ACTION_PAUSE ->{
+            AppConstants.ACTION_PAUSE -> {
                 var secondsRemaining = PrefUtil.getSecondsRemaining(context)
                 val alarmSetTime = PrefUtil.getAlarmSetTime(context)
                 val nowSeconds = MainActivity.nowSeconds
 
                 secondsRemaining -= nowSeconds - alarmSetTime
-                PrefUtil.setSecondsRemaining(secondsRemaining,context)
+                PrefUtil.setSecondsRemaining(secondsRemaining, context)
 
                 MainActivity.removeAlarm(context)
-                PrefUtil.setTimerState(MainActivity.TimerState.Paused,context)
+                PrefUtil.setTimerState(MainActivity.TimerState.Paused, context)
                 NotificationUtil.showTimerPaused(context)
             }
-            AppConstants.ACTION_RESUME ->{
+            AppConstants.ACTION_RESUME -> {
                 val secondsRemaining = PrefUtil.getSecondsRemaining(context)
-                val wakeUpTime = MainActivity.setAlarm(context,MainActivity.nowSeconds,secondsRemaining)
-                PrefUtil.setTimerState(MainActivity.TimerState.Running,context)
-                NotificationUtil.showTimerRunning(context,wakeUpTime)
+                val wakeUpTime = MainActivity.setAlarm(context, MainActivity.nowSeconds, secondsRemaining)
+                PrefUtil.setTimerState(MainActivity.TimerState.Running, context)
+                NotificationUtil.showTimerRunning(context, wakeUpTime)
             }
-            AppConstants.ACTION_START ->{
+            AppConstants.ACTION_START -> {
                 val minutesRemaining = PrefUtil.getTimerLength(context)
                 val secondsRemaining = minutesRemaining * 60L
-                val wakeUpTime = MainActivity.setAlarm(context,MainActivity.nowSeconds,secondsRemaining)
-                PrefUtil.setTimerState(MainActivity.TimerState.Running,context)
-                PrefUtil.setSecondsRemaining(secondsRemaining,context)
-                NotificationUtil.showTimerRunning(context,wakeUpTime)
+                val wakeUpTime = MainActivity.setAlarm(context, MainActivity.nowSeconds, secondsRemaining)
+                PrefUtil.setTimerState(MainActivity.TimerState.Running, context)
+                PrefUtil.setSecondsRemaining(secondsRemaining, context)
+                NotificationUtil.showTimerRunning(context, wakeUpTime)
             }
         }
     }
