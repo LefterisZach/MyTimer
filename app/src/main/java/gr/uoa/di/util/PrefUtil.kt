@@ -10,9 +10,11 @@ class PrefUtil {
 
     companion object {
 
+        private const val TIMER_LENGTH_ID = "gr.uoa.di.timer.timer_length"
+
         fun getTimerLength(context: Context): Int {
-            //placeholder
-            return 1
+            val preferences = PreferenceManager.getDefaultSharedPreferences(context)
+            return preferences.getInt(TIMER_LENGTH_ID, 10)
         }
 
         private const val PREVIOUS_TIMER_LENGTH_SECONDS_ID = "gr.uoa.di.previous_timer_length"
